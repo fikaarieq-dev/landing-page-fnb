@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dapur Nusantara — Cita Rasa Autentik</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1a1a18;
+    --dark: #242420;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --cream-dark: #e8e0d0;
+    --text-muted: #9a9488;
+    --white: #ffffff;
+    --section-pad: 90px 40px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(26,26,24,0.95);
+    backdrop-filter: blur(8px);
+    padding: 18px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--cream-dark); text-decoration: none;
+    font-size: 0.88rem; font-weight: 400; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold); color: var(--charcoal);
+    padding: 9px 22px; border-radius: 3px;
+    font-size: 0.85rem; font-weight: 500; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); color: var(--charcoal) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--charcoal);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=1400&q=80') center/cover no-repeat;
+    opacity: 0.18;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase;
+    padding: 6px 18px; border-radius: 2px; margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    color: var(--white); line-height: 1.1; font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-sub {
+    color: #b0a898; font-size: 1.05rem; max-width: 520px;
+    margin: 0 auto 42px; font-weight: 300; line-height: 1.8;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold); color: var(--charcoal);
+    padding: 14px 36px; border-radius: 3px;
+    font-size: 0.9rem; font-weight: 500; text-decoration: none;
+    letter-spacing: 0.3px; transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-block;
+    border: 1.5px solid rgba(201,168,76,0.5); color: var(--cream-dark);
+    padding: 13px 32px; border-radius: 3px; margin-left: 14px;
+    font-size: 0.9rem; font-weight: 400; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--dark);
+    padding: 30px 40px;
+    display: flex; justify-content: center; gap: 80px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--gold); font-weight: 700;
+  }
+  .stat-label { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.5px; }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: var(--section-pad); }
+  .section-tag {
+    font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; line-height: 1.2; color: var(--charcoal);
+  }
+  .section-title.light { color: var(--white); }
+  .section-sub {
+    color: var(--text-muted); max-width: 480px;
+    margin-top: 14px; font-weight: 300; line-height: 1.8;
+  }
+  .section-sub.light { color: #8a8278; }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    padding: 100px 80px;
+  }
+  .about-img-wrap { position: relative; }
+  .about-img {
+    width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    border-radius: 4px;
+  }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--gold); color: var(--charcoal);
+    padding: 20px 24px; border-radius: 4px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; text-align: center; line-height: 1.2;
+  }
+  .about-badge span { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; }
+  .about-content { padding-left: 20px; }
+  .divider { width: 48px; height: 2px; background: var(--gold); margin: 24px 0; }
+  .about-text { color: #5a5650; line-height: 1.9; font-weight: 300; margin-bottom: 20px; }
+
+  /* ── MENU ── */
+  #menu {
+    background: var(--charcoal);
+    padding: 100px 60px;
+    text-align: center;
+  }
+  .menu-header { margin-bottom: 60px; }
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px; max-width: 1100px; margin: 0 auto;
+  }
+  .menu-card {
+    background: #242420; border: 1px solid #2e2e2a;
+    border-radius: 6px; overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+    text-align: left;
+  }
+  .menu-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .menu-img {
+    width: 100%; height: 200px; object-fit: cover;
+  }
+  .menu-body { padding: 22px 24px; }
+  .menu-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--white); margin-bottom: 8px;
+  }
+  .menu-desc { font-size: 0.85rem; color: #7a7570; line-height: 1.7; margin-bottom: 16px; }
+  .menu-footer { display: flex; justify-content: space-between; align-items: center; }
+  .menu-price { color: var(--gold); font-weight: 500; font-size: 1.05rem; }
+  .menu-tag-badge {
+    font-size: 0.72rem; background: rgba(201,168,76,0.12);
+    color: var(--gold); padding: 4px 10px; border-radius: 2px; letter-spacing: 0.5px;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    background: var(--cream-dark); padding: 100px 60px; text-align: center;
+  }
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; max-width: 960px; margin: 50px auto 0;
+  }
+  .testi-card {
+    background: var(--white); border: 1px solid #ddd8cc;
+    border-radius: 6px; padding: 30px 28px; text-align: left;
+  }
+  .testi-stars { color: var(--gold); font-size: 1rem; margin-bottom: 14px; }
+  .testi-text { font-size: 0.9rem; color: #5a5450; line-height: 1.8; font-style: italic; margin-bottom: 20px; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--gold); display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem; color: var(--charcoal);
+    flex-shrink: 0;
+  }
+  .testi-name { font-weight: 500; font-size: 0.9rem; color: var(--charcoal); }
+  .testi-location { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── ORDER FORM ── */
+  #order {
+    background: var(--charcoal); padding: 100px 40px;
+  }
+  .order-inner {
+    max-width: 760px; margin: 0 auto;
+  }
+  .order-header { text-align: center; margin-bottom: 52px; }
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label {
+    font-size: 0.8rem; color: #7a7570;
+    letter-spacing: 0.8px; text-transform: uppercase; font-weight: 400;
+  }
+  input, select, textarea {
+    background: #1e1e1c; border: 1px solid #333330;
+    border-radius: 4px; padding: 14px 16px;
+    color: var(--cream); font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; transition: border-color 0.2s; outline: none;
+    width: 100%;
+  }
+  input::placeholder, textarea::placeholder { color: #4a4a46; }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+  select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a84c' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
+  select option { background: #1e1e1c; }
+  textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    margin-top: 32px; text-align: center;
+  }
+  .btn-submit {
+    background: var(--gold); color: var(--charcoal);
+    padding: 16px 52px; border: none; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; transition: all 0.25s; letter-spacing: 0.3px;
+    width: 100%;
+  }
+  .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .form-note { font-size: 0.8rem; color: #5a5450; margin-top: 14px; text-align: center; }
+
+  /* ── SUCCESS MSG ── */
+  #success-msg {
+    display: none; text-align: center; padding: 40px;
+    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 6px; margin-top: 20px;
+  }
+  #success-msg h3 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 10px; }
+  #success-msg p { color: #9a9488; font-size: 0.9rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #111110;
+    padding: 50px 60px 30px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px;
+    border-top: 1px solid #222;
+  }
+  .footer-brand {}
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold); font-size: 1.5rem; margin-bottom: 14px;
+  }
+  .footer-tagline { color: #5a5650; font-size: 0.85rem; line-height: 1.8; max-width: 280px; }
+  .footer-heading { color: #5a5450; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 18px; font-weight: 500; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: #7a7470; font-size: 0.88rem; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    background: #111110; padding: 20px 60px;
+    border-top: 1px solid #1e1e1c;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { color: #3a3a38; font-size: 0.8rem; }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 32px; right: 32px; z-index: 200;
+    background: #25d366; color: white;
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    text-decoration: none; transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+
+  /* ── ANIMATE ── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    #about { grid-template-columns: 1fr; padding: 80px 24px; gap: 50px; }
+    .about-content { padding-left: 0; }
+    #menu, #testimonials { padding: 80px 24px; }
+    #order { padding: 80px 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; padding: 50px 24px 24px; }
+    .footer-bottom { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .stats-bar { gap: 40px; }
+    .hero-title { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Dapur Nusantara</div>
+  <ul class="nav-links">
+    <li><a href="#about">Tentang Kami</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#testimonials">Ulasan</a></li>
+    <li><a href="#order">Pesan Sekarang</a></li>
+  </ul>
+  <a href="#order" class="nav-cta">Pesan Sekarang</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Masakan Tradisional Indonesia</div>
+    <h1 class="hero-title">Cita Rasa <span>Autentik</span><br />dari Dapur Kami</h1>
+    <p class="hero-sub">Hidangan rumahan dengan bahan pilihan dan resep turun-temurun. Diantar langsung ke pintu rumah Anda.</p>
+    <a href="#order" class="btn-primary">Pesan Sekarang</a>
+    <a href="#menu" class="btn-outline">Lihat Menu</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">500+</div>
+    <div class="stat-label">Pelanggan Puas</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3 Thn</div>
+    <div class="stat-label">Pengalaman</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">25+</div>
+    <div class="stat-label">Varian Menu</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">4.9★</div>
+    <div class="stat-label">Rating Rata-rata</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-img-wrap fade-up">
+    <img
+      src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80"
+      alt="Masakan Nusantara"
+      class="about-img"
+    />
+    <div class="about-badge">Bahan<br /><span>100% Segar</span></div>
+  </div>
+  <div class="about-content fade-up">
+    <div class="section-tag">Tentang Kami</div>
+    <h2 class="section-title">Masakan Rumahan,<br />Kualitas Restoran</h2>
+    <div class="divider"></div>
+    <p class="about-text">
+      Dapur Nusantara lahir dari kecintaan kami terhadap masakan tradisional Indonesia. Setiap hidangan dimasak dengan penuh perhatian menggunakan rempah-rempah asli dan bahan segar pilihan.
+    </p>
+    <p class="about-text">
+      Kami percaya bahwa makanan yang baik bukan hanya soal rasa, tapi juga soal kenangan dan kehangatan yang dibawa ke meja makan Anda.
+    </p>
+    <a href="#order" class="btn-primary" style="margin-top: 10px;">Coba Sekarang</a>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header fade-up">
+    <div class="section-tag">Menu Pilihan</div>
+    <h2 class="section-title light">Hidangan Unggulan Kami</h2>
+    <p class="section-sub light" style="margin: 14px auto 0;">Pilihan terbaik dari dapur kami, dimasak segar setiap hari.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card fade-up">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&q=80" alt="Rendang Sapi" class="menu-img" />
+      <div class="menu-body">
+        <div class="menu-name">Rendang Sapi</div>
+        <p class="menu-desc">Daging sapi empuk dimasak dalam santan dan rempah selama 4 jam. Kaya rasa, tahan lama.</p>
+        <div class="menu-footer">
+          <span class="menu-price">Rp 35.000</span>
+          <span class="menu-tag-badge">BEST SELLER</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card fade-up">
+      <img src="https://images.unsplash.com/photo-1604908177453-7462950a6a3b?w=400&q=80" alt="Ayam Bakar Bumbu" class="menu-img" />
+      <div class="menu-body">
+        <div class="menu-name">Ayam Bakar Bumbu</div>
+        <p class="menu-desc">Ayam kampung segar dimarinasi semalam dengan bumbu rahasia, dibakar hingga sempurna.</p>
+        <div class="menu-footer">
+          <span class="menu-price">Rp 28.000</span>
+          <span class="menu-tag-badge">FAVORIT</span>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card fade-up">
+      <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&q=80" alt="Soto Ayam" class="menu-img" />
+      <div class="menu-body">
+        <div class="menu-name">Soto Ayam Lamongan</div>
+        <p class="menu-desc">Kuah kuning gurih dengan suwiran ayam, telur, dan pelengkap koya khas Lamongan.</p>
+        <div class="menu-footer">
+          <span class="menu-price">Rp 22.000</span>
+          <span class="menu-tag-badge">BARU</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="fade-up" style="text-align:center;">
+    <div class="section-tag">Ulasan Pelanggan</div>
+    <h2 class="section-title">Apa Kata Mereka?</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Rendangnya beneran enak banget! Dagingnya empuk, bumbunya meresap sempurna. Sudah pesan 5 kali dan tidak pernah kecewa."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AR</div>
+        <div>
+          <div class="testi-name">Anisa Rahmawati</div>
+          <div class="testi-location">Batam, Kepri</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Pelayanannya cepat dan makanannya masih panas saat sampai. Soto ayamnya persis seperti di warung Bu Tinah favorit saya dulu!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">BW</div>
+        <div>
+          <div class="testi-name">Budi Wicaksono</div>
+          <div class="testi-location">Batam, Kepri</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Harga sangat terjangkau untuk kualitas yang sangat baik. Ayam bakarnya jadi langganan makan siang saya setiap minggu."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">DP</div>
+        <div>
+          <div class="testi-name">Dewi Pertiwi</div>
+          <div class="testi-location">Batam, Kepri</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section id="order">
+  <div class="order-inner">
+    <div class="order-header fade-up">
+      <div class="section-tag">Pesan Sekarang</div>
+      <h2 class="section-title light">Ingin Memesan?</h2>
+      <p class="section-sub light" style="margin: 14px auto 0;">Isi form di bawah ini dan kami akan menghubungi Anda dalam 10 menit.</p>
+    </div>
+
+    <form id="order-form" class="fade-up" onsubmit="handleOrder(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">Nama Lengkap *</label>
+          <input type="text" id="name" placeholder="cth. Budi Santoso" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Nomor WhatsApp *</label>
+          <input type="tel" id="phone" placeholder="cth. 08123456789" required />
+        </div>
+        <div class="form-group">
+          <label for="menu-select">Menu yang Dipesan *</label>
+          <select id="menu-select" required>
+            <option value="" disabled selected>Pilih menu...</option>
+            <option>Rendang Sapi — Rp 35.000</option>
+            <option>Ayam Bakar Bumbu — Rp 28.000</option>
+            <option>Soto Ayam Lamongan — Rp 22.000</option>
+            <option>Paket Hemat (3 menu)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="qty">Jumlah Porsi *</label>
+          <input type="number" id="qty" min="1" max="50" placeholder="cth. 2" required />
+        </div>
+        <div class="form-group full">
+          <label for="address">Alamat Pengiriman *</label>
+          <input type="text" id="address" placeholder="Nama jalan, no. rumah, RT/RW, kelurahan..." required />
+        </div>
+        <div class="form-group full">
+          <label for="notes">Catatan Tambahan</label>
+          <textarea id="notes" placeholder="cth. Tidak pedas, extra kerupuk, dll..."></textarea>
+        </div>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-submit">Kirim Pesanan via WhatsApp</button>
+        <p class="form-note">Dengan menekan tombol di atas, Anda akan diarahkan ke WhatsApp kami.</p>
+      </div>
+    </form>
+
+    <div id="success-msg">
+      <h3>Pesanan Terkirim!</h3>
+      <p>Terima kasih. Tim kami akan segera menghubungi Anda untuk konfirmasi pesanan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">Dapur Nusantara</div>
+    <p class="footer-tagline">Masakan tradisional Indonesia yang lezat, diantar langsung ke rumah Anda dengan penuh kasih sayang.</p>
+  </div>
+  <div>
+    <div class="footer-heading">Navigasi</div>
+    <ul class="footer-links">
+      <li><a href="#about">Tentang Kami</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#testimonials">Ulasan</a></li>
+      <li><a href="#order">Pesan Sekarang</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="footer-heading">Kontak</div>
+    <ul class="footer-links">
+      <li><a href="#">WhatsApp: 0812-xxxx-xxxx</a></li>
+      <li><a href="#">Instagram: @dapurnusantara</a></li>
+      <li><a href="#">Buka: 08.00 – 20.00 WIB</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span class="footer-copy">© 2025 Dapur Nusantara. All rights reserved.</span>
+  <span class="footer-copy">Made with care in Indonesia 🇮🇩</span>
+</div>
+
+<!-- WA FLOAT BUTTON -->
+<a href="https://wa.me/628123456789" class="wa-float" target="_blank" title="Chat WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.122.552 4.112 1.518 5.839L.057 23.882a.5.5 0 0 0 .606.641l6.218-1.619A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.886 9.886 0 0 1-5.031-1.371l-.36-.214-3.732.97.997-3.636-.234-.374A9.884 9.884 0 0 1 2.118 12C2.118 6.535 6.535 2.118 12 2.118c5.464 0 9.882 4.417 9.882 9.882 0 5.464-4.418 9.882-9.882 9.882z"/>
+  </svg>
+</a>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Order form
+  function handleOrder(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const menu = document.getElementById('menu-select').value;
+    const qty = document.getElementById('qty').value;
+    const address = document.getElementById('address').value;
+    const notes = document.getElementById('notes').value;
+
+    const msg = encodeURIComponent(
+      `Halo Dapur Nusantara! Saya ingin memesan:\n\n` +
+      `Nama: ${name}\n` +
+      `Nomor WA: ${phone}\n` +
+      `Menu: ${menu}\n` +
+      `Jumlah: ${qty} porsi\n` +
+      `Alamat: ${address}\n` +
+      `Catatan: ${notes || '-'}\n\n` +
+      `Mohon konfirmasinya. Terima kasih! 🙏`
+    );
+
+    // Open WhatsApp
+    window.open(`https://wa.me/628123456789?text=${msg}`, '_blank');
+
+    // Show success
+    document.getElementById('order-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+</script>
+</body>
+</html>
